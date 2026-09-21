@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#55b4f3" />
+  <title>개발자를 숨겼다!!</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="app">
+    <section class="game-shell">
+      <header class="hud">
+        <div class="title-wrap">
+          <div class="magnifier">⌕</div>
+          <div>
+            <h1>개발자를 찾아라!</h1>
+            <p>사무실 속에 숨어있는 개발자를 찾아보세요!</p>
+          </div>
+        </div>
+        <div class="stats">
+          <div><span>찾은 단서</span><strong id="clueCount">0 / 5</strong></div>
+          <div><span>TIME</span><strong id="timer">03:00</strong></div>
+        </div>
+      </header>
+
+      <section class="scene-wrap">
+        <div class="scene" id="scene" aria-label="사무실 탐색 화면">
+          <img src="./assets/office.png" alt="픽셀아트 사무실" class="scene-bg" />
+          <div class="hotspots" id="hotspots"></div>
+          <div class="scan-line"></div>
+        </div>
+      </section>
+
+      <section class="hintbar">
+        <button id="hintBtn" class="hint-btn">💡 힌트</button>
+        <p id="hintText">모두가 각자의 역할을 하고 있어요. 조금 더 자세히 살펴보세요!</p>
+        <div class="controls">
+          <button id="pauseBtn" aria-label="일시정지">Ⅱ</button>
+          <button id="soundBtn" aria-label="소리">♪</button>
+        </div>
+      </section>
+
+      <section class="people-strip" id="peopleStrip"></section>
+    </section>
+  </main>
+
+  <dialog id="npcDialog" class="dialog">
+    <div class="dialog-head">
+      <div>
+        <span id="npcTeam" class="team-tag"></span>
+        <h2 id="npcName"></h2>
+      </div>
+      <button class="close-btn" id="closeDialog">×</button>
+    </div>
+    <p id="npcLine" class="npc-line"></p>
+    <div id="dialogChoices" class="choices"></div>
+  </dialog>
+
+  <dialog id="resultDialog" class="dialog result-dialog">
+    <div id="resultContent"></div>
+  </dialog>
+
+  <dialog id="introDialog" class="dialog intro">
+    <div class="intro-icon">🔍</div>
+    <h2>개발자를 숨겼다!!</h2>
+    <p>사무실에 개발자가 한 명 있습니다.</p>
+    <p>그런데 아무도 자신이 개발자라고 하지 않네요.</p>
+    <p class="strong">말보다 행동을 믿어보세요.</p>
+    <button id="startBtn" class="primary-btn">게임 시작</button>
+  </dialog>
+
+  <script src="./game.js"></script>
+</body>
+</html>

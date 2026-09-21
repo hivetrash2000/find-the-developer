@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Press+Start+2P&display=swap');
+
+:root {
+  --blue: #55b4f3;
+  --deep-blue: #268ed0;
+  --white: #fff;
+  --ink: #19324b;
+  --panel: rgba(255,255,255,.96);
+  --shadow: 0 8px 0 rgba(23,91,135,.18);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; }
+body {
+  background: #dff3ff;
+  color: var(--ink);
+  font-family: "Jua", system-ui, sans-serif;
+}
+
+button { font: inherit; cursor: pointer; }
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+}
+
+.game-shell {
+  width: min(100%, 520px);
+  background: var(--blue);
+  border: 4px solid white;
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(22,72,108,.18);
+  overflow: hidden;
+}
+
+.hud {
+  color: white;
+  padding: 16px;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-wrap { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.magnifier {
+  width: 48px; height: 48px; flex: 0 0 48px;
+  display: grid; place-items: center;
+  border: 3px solid white; border-radius: 50%;
+  font-size: 32px; transform: rotate(-20deg);
+}
+h1 { margin: 0; font-size: 22px; }
+.hud p { margin: 3px 0 0; font-size: 13px; opacity: .95; }
+
+.stats { display: flex; gap: 8px; }
+.stats > div {
+  min-width: 76px; padding: 7px 9px; text-align: center;
+  border: 2px solid white; border-radius: 10px;
+}
+.stats span { display:block; font-size: 10px; }
+.stats strong { display:block; font-family: "Press Start 2P", monospace; font-size: 11px; margin-top: 5px; }
+
+.scene-wrap { padding: 0 10px; }
+.scene {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  border: 4px solid white;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #a9dcff;
+}
+.scene-bg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  image-rendering: auto;
+  display: block;
+}
+.hotspots { position:absolute; inset:0; }
+.hotspot {
+  position: absolute;
+  border: 2px solid transparent;
+  background: transparent;
+  border-radius: 18px;
+  transition: .15s;
+}
+.hotspot:hover, .hotspot:focus-visible {
+  border-color: rgba(255,255,255,.9);
+  background: rgba(255,255,255,.12);
+  box-shadow: 0 0 0 4px rgba(38,142,208,.35);
+}
+.hotspot.found { border-color: #ffe34d; background: rgba(255,227,77,.18); }
+.hotspot .tag {
+  position: absolute; top: -24px; left: 50%;
+  transform: translateX(-50%);
+  background: white; color: var(--deep-blue);
+  border-radius: 8px; padding: 2px 7px;
+  white-space: nowrap; font-size: 12px;
+  opacity: 0; pointer-events: none;
+}
+.hotspot:hover .tag { opacity: 1; }
+
+.scan-line {
+  position:absolute; left:0; right:0; height:2px; top:-2px;
+  background: rgba(255,255,255,.55);
+  animation: scan 5s linear infinite;
+  pointer-events:none;
+}
+@keyframes scan { to { top: 100%; } }
+
+.hintbar {
+  margin: 10px;
+  padding: 10px;
+  display: flex; align-items:center; gap:10px;
+  color: white; border: 2px solid white; border-radius: 14px;
+}
+.hintbar p { flex: 1; margin: 0; font-size: 13px; line-height: 1.35; }
+.hint-btn, .controls button {
+  border: 2px solid white; color:white; background: transparent;
+  border-radius: 10px; padding: 7px 9px;
+}
+.hint-btn { background: rgba(255,255,255,.15); }
+.controls { display:flex; gap:5px; }
+.controls button { width: 34px; height: 34px; padding:0; }
+
+.people-strip {
+  padding: 0 12px 14px;
+  display:grid; grid-template-columns: repeat(7, 1fr); gap:7px;
+}
+.person-card {
+  min-width:0; aspect-ratio: 1;
+  border:2px solid white; border-radius:10px;
+  background: rgba(255,255,255,.16); color:white;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  padding:4px;
+}
+.person-card .avatar { font-size: 24px; }
+.person-card small { font-size: 9px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; width:100%; text-align:center; }
+.person-card.suspect { border-color:#ffe34d; box-shadow: inset 0 0 0 2px rgba(255,227,77,.2); }
+.person-card.cleared { opacity:.55; }
+
+.dialog {
+  width: min(92vw, 420px);
+  border: 0; border-radius: 18px; padding: 0;
+  color: var(--ink); background: var(--panel);
+  box-shadow: 0 20px 70px rgba(0,0,0,.28);
+}
+.dialog::backdrop { background: rgba(9,39,63,.58); backdrop-filter: blur(2px); }
+.dialog > * { padding-left: 20px; padding-right: 20px; }
+.dialog-head {
+  padding-top: 18px; padding-bottom: 12px;
+  display:flex; justify-content:space-between; align-items:flex-start;
+  border-bottom: 1px solid #dcebf5;
+}
+.team-tag {
+  display:inline-block; background: var(--blue); color:white;
+  border-radius:999px; padding:3px 8px; font-size:11px;
+}
+.dialog h2 { margin: 5px 0 0; font-size: 22px; }
+.close-btn { border:0; background:none; font-size:28px; color:#7d92a4; }
+.npc-line { padding-top: 16px; min-height: 66px; font-size:17px; line-height:1.5; }
+.choices { padding-bottom: 20px; display:grid; gap:8px; }
+.choice {
+  border:2px solid #cde5f4; background:white; border-radius:12px;
+  padding:12px; text-align:left; color:var(--ink);
+}
+.choice:hover { border-color:var(--deep-blue); background:#eef9ff; }
+
+.intro { text-align:center; padding: 30px 24px; }
+.intro-icon { font-size: 52px; }
+.intro h2 { font-size:30px; margin:10px 0; }
+.intro p { margin:8px 0; line-height:1.45; }
+.strong { font-weight:bold; color:var(--deep-blue); }
+.primary-btn {
+  width:100%; border:0; border-radius:12px; padding:14px;
+  background:var(--deep-blue); color:white; margin-top:16px;
+  font-size:18px;
+}
+
+.result-dialog { text-align:center; padding:30px 24px; }
+.result-dialog h2 { margin-top:0; font-size:28px; }
+.result-dialog .score { font-family:"Press Start 2P", monospace; font-size:14px; line-height:1.8; }
+.result-dialog .primary-btn { margin-top:12px; }
+
+@media (max-width: 620px) {
+  .app { padding: 0; }
+  .game-shell { border-radius:0; border-left:0; border-right:0; min-height:100vh; }
+  .hud { padding: 12px; }
+  .hud p { display:none; }
+  h1 { font-size:20px; }
+  .stats > div { min-width:68px; }
+}
